@@ -78,4 +78,4 @@ def test_get_valid_index_invalid_input(monkeypatch, capsys):
     
     assert index is None
     captured = capsys.readouterr()
-    assert "Invalid input123" in captured.out
+    assert "Invalid input" in captured.out
