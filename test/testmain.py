@@ -5,7 +5,7 @@ import pytest
 # Add the parent directory to sys.path to allow importing main
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from main import get_todos, save_todos, get_valid_index
+from functions import get_todos, save_todos, get_valid_index
 
 def test_get_todos_file_exists(tmp_path):
     """Test reading from an existing file."""
