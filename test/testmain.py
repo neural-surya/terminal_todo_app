@@ -1,6 +1,5 @@
 import sys
 from pathlib import Path
-import pytest
 
 # Add the parent directory to sys.path to allow importing main
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
