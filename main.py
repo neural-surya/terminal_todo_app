@@ -1,6 +1,6 @@
 from pathlib import Path
-from functions import get_todos, save_todos, get_valid_index
-
+from functions import get_todos, save_todos, get_valid_index, get_command_count, update_command_count, archive_files
+import time
 # Define the root directory of the project
 ROOT_DIR = Path(__file__).resolve().parent
 filename = ROOT_DIR / 'files' / 'todos.txt'
@@ -16,10 +16,9 @@ welcome_banner = """
 
 def main():
     print(welcome_banner)
-    print("Welcome to the TODO App!")
-    print("""
-    Manage your tasks efficiently from the terminal.\n
-    Add("1" or "add"), Show("2" or "show"), Edit("3" or "edit"), Complete("4" or "complete"), Exit("5" or "exit"):
+    print("Welcome to the TODO App!\n")
+    print(time.strftime("Now the time is: %b %d, %Y %I:%M:%S %p localtime\n"))
+    print("""Manage your tasks efficiently from the terminal.\nAdd("1" or "add"), Show("2" or "show"), Edit("3" or "edit"), Complete("4" or "complete"), Exit("5" or "exit"):
     """)
 
     while True:
@@ -27,6 +26,8 @@ def main():
         user_input = user_input.strip().title()
         match user_input:
             case '1' | 'Add':
+                count = get_command_count("add")
+                print(f"FYI, As of now 'Add' command has been used: {count} times")
                 todos = get_todos(filename)
                 new_todo = input("Enter a new todo item: ").strip()
                 if not new_todo:
@@ -36,6 +37,7 @@ def main():
                 else:
                     todos.append(new_todo + '\n')
                     save_todos(filename, todos)
+                update_command_count("add", str(int(count) + 1))
 
             case '2' | 'Show':
                 todos = get_todos(filename)
@@ -64,6 +66,8 @@ def main():
                     todos.pop(index)
                     save_todos(filename, todos)
             case '5' | 'Exit':
+                print("Archiving the output files:")
+                archive_files()
                 break
 
 if __name__ == "__main__":
