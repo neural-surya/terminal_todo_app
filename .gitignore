@@ -2,3 +2,7 @@
 .venv
 .env
 .txt
+.DS_Store
+__pycache__/
+files/*.*
+test/__pycache__/
